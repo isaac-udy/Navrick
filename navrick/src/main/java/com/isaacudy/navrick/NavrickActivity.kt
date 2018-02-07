@@ -19,7 +19,7 @@ abstract class NavrickActivity : AppCompatActivity() {
     lateinit var navrick: Navrick
         private set
 
-    override fun onCreate(savedInstanceState: Bundle?) {createNavrick()
+    override fun onCreate(savedInstanceState: Bundle?) {
         navrick = createNavrick()
 
         val id = savedInstanceState?.getString(NAVRICK_ACTIVITY_ID)
