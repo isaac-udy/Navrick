@@ -20,6 +20,12 @@ class Navrick internal constructor(
     val backstackSize get() = backstack.size
     val currentFragment get() = activity.supportFragmentManager.findFragmentById(layout)
 
+    init {
+        if(home != null) {
+            backstack.add(home)
+        }
+    }
+
     fun <T : Any> forward(screen: T, transactionBlock: transactionBlock = emptyTransactionBlock){
         backstack.add(screen)
         open(screen, transactionBlock)
@@ -89,9 +95,8 @@ class Navrick internal constructor(
     internal fun initialise(){
         val existingFragment = activity.supportFragmentManager.findFragmentById(layout)
         if(existingFragment != null) return
-        if(home != null && backstack.size == 0){
-            backstack.add(home)
-            open(home, emptyTransactionBlock)
+        if(backstackSize > 0) {
+            open(backstack.last(), emptyTransactionBlock)
         }
     }
 
