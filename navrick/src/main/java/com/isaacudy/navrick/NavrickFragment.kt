@@ -34,7 +34,7 @@ abstract class NavrickFragment<in T : Any> : Fragment() {
         NavrickFragmentBindingStorage.storage.remove(_id)
     }
 
-    abstract fun onViewBound(t: T)
+    open fun onViewBound(t: T) {}
 
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
