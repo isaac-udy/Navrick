@@ -15,7 +15,7 @@ class Navrick internal constructor(
         private val home: Any?
 ) {
     internal var backstack: ArrayList<Any> = ArrayList()
-    var onFragmentAdded: (fragment: Fragment) -> Unit = {}
+    var onFragmentAdded: (fragment: NavrickFragment<*>) -> Unit = {}
 
     val backstackSize get() = backstack.size
     val currentFragment get() = activity.supportFragmentManager.findFragmentById(layout)
@@ -73,6 +73,7 @@ class Navrick internal constructor(
         val view = bindings[screen::class] ?: TODO("NO BINDING")
         val viewInstance = view.createInstance() as NavrickFragment<T>
         viewInstance.bind(screen)
+        onFragmentAdded(viewInstance)
 
         val existingView = activity.supportFragmentManager.findFragmentById(layout)
         activity.fragmentTransaction {
@@ -83,8 +84,6 @@ class Navrick internal constructor(
             }
             add(layout, viewInstance)
         }
-
-        onFragmentAdded(viewInstance)
     }
 
     internal fun initialise(){
